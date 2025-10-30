@@ -1,0 +1,218 @@
+//main.c
+#include <LPC214x.h>
+#include "types.h"
+#include "lcd.h"
+#include "rtc.h"
+#include "delay.h"
+#include "lcd_defines.h"
+#include "kpm.h"     // ? For key_scan()
+#include "adc.h"
+#include "dt.h"
+
+void Set_Alarm(void);
+void Set_DateAlarm(void);
+void Show_ADC_Temperature(void);
+
+// Global variables
+s32 hour, min, sec, date, month, year, day;
+
+volatile unsigned char eint_flag = 0;
+volatile unsigned char menu_active = 0;
+char key;
+
+// Global variables
+//s32 hour, min, sec, date, month, year, day;
+// Add these for Alarm
+s32 alarm_hour = -1, alarm_min = -1, alarm_sec = -1;
+
+
+
+// Function prototypes
+void EINT0_Init(void);
+void Show_Edit_Menu(void);
+void Show_RTC_Display(void);
+
+
+
+void Check_Alarm(void)
+{
+		u32 i;
+    static unsigned char alarm_triggered = 0;  // flag to prevent retrigger
+    if (alarm_hour == -1) return;  // No alarm set yet
+
+    // If current RTC time matches alarm time
+    if (hour == alarm_hour && min == alarm_min && sec == alarm_sec && alarm_triggered == 0)
+    {
+        alarm_triggered = 1;  // Mark that alarm has been triggered
+
+        IOSET0 = (1 << 0);    // Turn ON LED
+        for (i = 0; i < 5; i++)  // Keep LED ON for 5 seconds
+        {
+            delay_s(1);       // Your 1-second delay function
+        }
+        IOCLR0 = (1 << 0);    // Turn OFF LED after 5 seconds
+    }
+
+    // Reset trigger once time moves past the alarm second (so it can work again next time)
+    if (sec != alarm_sec)
+    {
+        alarm_triggered = 0;
+    }
+}
+
+void EINT0_ISR(void) __irq
+{
+    eint_flag = 1;           // Set flag to show menu
+    EXTINT = 0x01;           // Clear EINT0 flag
+    VICVectAddr = 0x00;      // Acknowledge end of interrupt
+}
+int main(void)
+{
+    // Initialize LCD, RTC, and keypad
+    Init_LCD();
+    RTC_Init();
+    Init_KPM();   // ? Initialize keypad (if required in your setup)
+		Init_ADC();
+	
+	
+				
+		IODIR0 |= (1 << 0);  // Set P0.0 as output (LED)
+		IOCLR0 = (1 << 0);   // Turn LED OFF initially
+	
+	
+		Show_ADC_Temperature();
+    // Set initial date/time
+    SetRTCTimeInfo(19, 30, 0);
+    SetRTCDateInfo(18, 10, 2025);
+    SetRTCDay(6); // Saturday
+
+    // Initialize EINT0
+    EINT0_Init();
+		CmdLCD(0x0C);   // Display ON, cursor OFF, blink OFF
+
+
+    while (1)
+    {
+        if (eint_flag)
+        {
+            menu_active = 1;
+            eint_flag = 0;
+            Show_Edit_Menu();
+        }
+
+        if (!menu_active)
+        {
+            Show_RTC_Display();   // Show RTC only if menu not active
+						Show_ADC_Temperature();
+					  Check_Alarm();   // ? LED control happens here
+        }
+    }
+}
+void EINT0_Init(void)
+{
+    // Configure P0.1 as EINT0
+    PINSEL0 &= ~(3 << 2);
+    PINSEL0 |=  (3 << 2);   // P0.1 = EINT0
+
+    EXTMODE  = 0x01;        // Edge sensitive
+    EXTPOLAR = 0x00;        // Falling edge
+    EXTINT   = 0x01;        // Clear flag
+
+    // VIC setup
+    VICIntSelect = 0x00000000;                // IRQ
+    VICVectAddr0 = (unsigned long)EINT0_ISR; // ISR
+    VICVectCntl0 = 0x20 | 14;                 // Slot 0
+    VICIntEnable = (1 << 14);                 // Enable EINT0
+}
+
+void Show_RTC_Display(void)
+{
+		
+		static int last_min = -1;   // Remember the last displayed minute
+	
+    GetRTCTimeInfo(&hour, &min, &sec);
+    GetRTCDateInfo(&date, &month, &year);
+    GetRTCDay(&day);
+
+		// Clear LCD only when minute changes (once per minute)
+    if (min != last_min)
+    {
+        CmdLCD(CLEAR_LCD);
+        last_min = min;
+    }
+		
+    //CmdLCD(CLEAR_LCD);
+    DisplayRTCTime(hour, min, sec);
+    DisplayRTCDay(day);
+    DisplayRTCDate(date, month, year);
+		CmdLCD(0x0C);
+    delay_ms(2);
+}
+void Show_ADC_Temperature(void)
+{
+    unsigned int adcValue;
+    float voltage, temperature;
+    int intPart, decPart;
+
+    // Read ADC (channel 1 -> AD0.1 on P0.28)
+    adcValue = Read_ADC(1);
+
+    // Convert ADC value to temperature
+    voltage = (adcValue * 3.3f) / 1023.0f;   // Convert ADC reading to voltage
+    temperature = voltage * 100.0f;          // LM35 gives 10 mV per °C
+
+    intPart = (int)temperature;                                // Integer part
+    decPart = (int)((temperature - intPart) * 10 + 0.5f);      // One decimal digit
+
+    // Move cursor to line 2, column 12
+    CmdLCD(GOTO_LINE1_POS0 + 11);
+
+    // Display temperature (e.g., "27.3°C")
+    U32LCD(intPart);
+    CharLCD('.');
+    U32LCD(decPart);
+    CharLCD(223);  // Degree symbol (°)
+    StrLCD("C");
+}
+void Show_Edit_Menu(void)
+{
+    CmdLCD(CLEAR_LCD);
+    StrLCD("  ****EDIT****");
+    CmdLCD(GOTO_LINE2_POS0);
+    StrLCD("1.SDT 2.SA 3.EXT");
+
+    while (1)
+    {
+        key = KeyScan();
+
+        switch (key)
+        {
+            case '1':
+               Set_DateAlarm();
+								//Set_Alarm();  // <<< Call the alarm time editor
+                //DisplayRTCTime(hour, min, sec); // Optional: redraw main display after returning
+								CmdLCD(CLEAR_LCD);
+								StrLCD("  ****EDIT****");
+								CmdLCD(GOTO_LINE2_POS0);
+								StrLCD("1.SDT 2.SA 3.EXT");
+                break;
+                //break;
+
+            case '2':
+                Set_Alarm();  // <<< Call the alarm time editor
+                //DisplayRTCTime(hour, min, sec); // Optional: redraw main display after returning
+								CmdLCD(CLEAR_LCD);
+								StrLCD("  ****EDIT****");
+								CmdLCD(GOTO_LINE2_POS0);
+								StrLCD("1.SDT 2.SA 3.EXT");
+                break;
+            case '3':
+                CmdLCD(CLEAR_LCD);
+                menu_active = 0;
+                return;   // Exit the menu function
+
+            default:
+                break;  // Ignore other keys
+        }
+    }
+}
