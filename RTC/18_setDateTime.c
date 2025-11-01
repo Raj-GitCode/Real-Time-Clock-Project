@@ -291,7 +291,7 @@ void Set_DateAlarm(void)
     // ---- Add Fields ----
     AddFields(6, 2, 31);     // DD
     AddFields(9, 2, 12);     // MM
-    AddFields(12, 4, 1111);  // YYYY
+    AddFields(12, 4, 4050);  // YYYY
     AddFields(22, 2, 23);    // HH
     AddFields(25, 2, 59);    // MM
     AddFields(28, 2, 59);    // SS
