@@ -1,4 +1,4 @@
-
+//setAlrm
 #include "types.h"
 #include "lcd_defines.h"
 #include "lcd.h"
@@ -230,6 +230,7 @@ void Set_Alarm(void)
             else if (key == 'b' || key == 'B') {
                 // ---- Display saved alarm time ----
                 CmdLCD(0x01);  // Clear LCD
+								CmdLCD(CLEAR_LCD);
                 StrLCD((s8 *)"Saved Alarm:");
                 CmdLCD(GOTO_LINE2_POS0);
                 
