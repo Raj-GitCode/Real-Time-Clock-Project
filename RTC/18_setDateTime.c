@@ -222,7 +222,7 @@ void EnterDigit(u8 key)
 }
 
 // ---- Handle D Field ----
-void Handle_D_Fields(u8 key)
+/*void Handle_D_Fields(u8 key)
 {
     static u8 D_value = 0;
 
@@ -232,6 +232,30 @@ void Handle_D_Fields(u8 key)
             D_value = 0;
         SetCursorPoss(31);
         CharLCD(D_value + '0');
+        CmdLCD(0x10);
+    }
+}
+*/
+void Handle_D_Fields(u8 key)
+{
+    static u8 D_value = 0;
+    Field *f = &fieldss[6];   // 7th field = Day field
+
+    if (key >= '0' && key <= '9')
+    {
+        D_value = key - '0';
+
+        // Limit valid range (0–6)
+        if (D_value > 6)
+            D_value = 0;
+
+        // Update the field buffer so later extraction works
+        f->digits[0] = D_value + '0';
+        f->filled[0] = 1;
+
+        // Show on LCD
+        SetCursorPoss(31);
+        CharLCD(f->digits[0]);
         CmdLCD(0x10);
     }
 }
@@ -307,6 +331,7 @@ void Set_DateAlarm(void)
 
 									// ---- Confirm on LCD ----
 									CmdLCD(0x01);
+									CmdLCD(CLEAR_LCD);
 									StrLCD((s8 *)"Saved DateTime:");
 									CmdLCD(GOTO_LINE2_POS0);
 
