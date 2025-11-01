@@ -33,12 +33,15 @@ void EINT0_ISR(void) __irq
     VICVectAddr = 0x00;      // Acknowledge end of interrupt
 }
 
+#include "bell.h"
+
 int main(void)
 {
     Init_LCD();
     RTC_Init();
     Init_KPM();
     Init_ADC();
+		//Create_Bell_Symbol();   // Create alarm bell character
 
     IODIR0 |= (1 << 0);  // Set P0.0 as output (LED)
     IOCLR0 = (1 << 0);   // Turn LED OFF initially
@@ -71,4 +74,5 @@ int main(void)
         }
     }
 }
+
 
