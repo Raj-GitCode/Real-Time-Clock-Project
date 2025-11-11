@@ -346,6 +346,7 @@ void Set_DateAlarm(void)
 											else if (i == 5) CharLCD(' ');
 									}
 
+
 									delay_ms(1000);
 									return;
 							}
