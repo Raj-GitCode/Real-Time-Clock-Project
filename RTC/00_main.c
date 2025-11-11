@@ -1,4 +1,6 @@
 
+
+//main.c
 #include <LPC214x.h>
 #include "types.h"
 #include "lcd.h"
