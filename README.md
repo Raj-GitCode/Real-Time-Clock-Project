@@ -2,7 +2,6 @@
 
 
 
-
 # 🕒 LPC2148 Real-Time Clock (RTC) with LCD, Keypad, ADC (LM35), and Alarm System
 
 A complete **embedded system project** for the **LPC2148 (ARM7TDMI-S)** microcontroller.  
@@ -38,6 +37,11 @@ This project integrates an **RTC module**, **16x2 LCD display**, **4x4 keypad**,
 ├── bell.c / bell.h
 ├── types.h / defines.h
 └── README.md
+
+yaml
+Copy code
+
+---
 
 ## 🧰 Hardware Requirements
 
@@ -98,6 +102,8 @@ SA -> Set Alarm
 
 EXT -> Exit Menu
 
+yaml
+Copy code
 - Navigated with keypad symbols:
 - `+` → Next field
 - `=` → Previous field
@@ -114,10 +120,14 @@ voltage = (adcValue * 3.3f) / 1023.0f;
 temperature = voltage * 100.0f;   // LM35: 10 mV per °C
 Displayed on LCD as:
 
+mathematica
+Copy code
 27.3°C
 🔔 Alarm Display Example
 When alarm triggers:
 
+csharp
+Copy code
    [Bell Symbol]
 Press * 2ExtAlrm*
 🧩 Functions Overview
@@ -156,10 +166,14 @@ Reset Board — LCD should show date, time, and temperature.
 Press EINT0 key (P0.1) to open the edit menu.
 
 🧪 Example Output
+makefile
+Copy code
 19:30:08   27.3°C
 18-10-2025  SAT
 After pressing EINT0:
 
+markdown
+Copy code
 ****EDIT****
 1.SDT 2.SA 3.EXT
 📦 Dependencies
@@ -170,10 +184,14 @@ Standard ARM C Library
 Keil µVision or LPCXpresso IDE
 
 🧑‍💻 Author
-Developed by: M.Raju
-🔗 GitHub: https://github.com/Raj-GitCode
+Developed by: [Your Name]
+📧 Email: [your.email@example.com]
+🔗 GitHub: https://github.com/yourusername
 
 🪶 License
 This project is open-source under the MIT License — feel free to modify and share.
+
+💡 Tip: If your LCD “blinks” or “shows garbage,” verify your delay timings and contrast potentiometer (VEE).
+.
 
 💡 Tip: If your LCD “blinks” or “shows garbage,” verify your delay timings and contrast potentiometer (VEE).
