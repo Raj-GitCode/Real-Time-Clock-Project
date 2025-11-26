@@ -220,11 +220,10 @@ When triggered:
 * Menu screenshot
 * Alarm bell screenshot
 * Temperature display photo
-<img width="1233" height="847" alt="Screenshot (339)" src="https://github.com/user-attachments/assets/39f62132-1e20-49a0-bfae-1b8459181811" />
-<img width="255" height="113" alt="Screenshot (340)" src="https://github.com/user-attachments/assets/5535ee0c-7f42-4b30-8657-ff0bce4c65e0" />
-<img width="243" height="96" alt="Screenshot (341)" src="https://github.com/user-attachments/assets/96edf33d-5978-41c5-b071-e2044b96e56d" />
+<img width="954" height="847" alt="Screenshot (3399)" src="https://github.com/user-attachments/assets/12dbf1e8-a14e-4739-97f8-01b3c0371a82" />
 
-
+<img width="244" height="96" alt="Screenshot (3400)" src="https://github.com/user-attachments/assets/eeb87ed6-e2d5-47cf-83f5-a0238bf59f96" />
+<img width="243" height="96" alt="Screenshot (341)" src="https://github.com/user-attachments/assets/7d5e93b9-66c2-479a-9568-6052e534833b" />
 
 
 
