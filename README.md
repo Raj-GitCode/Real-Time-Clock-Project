@@ -102,7 +102,6 @@ Press external button → Menu appears:
 | -   | Move cursor down     |
 | x   | Move cursor up       |
 | on/c| Save and exit        |
-| *   | Menu operations      |
 
 ---
 
