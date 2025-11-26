@@ -124,7 +124,7 @@ Press external button → Menu appears:
 │── kpm.c
 │── bell.c
 │── setAlarm.c
-│── final_date_time.c
+│── setDateTime.c
 │
 ├── headers/
 │   ├── types.h
@@ -187,7 +187,7 @@ When triggered:
 
 * Buzzer/LED ON
 * LCD shows bell icon + “Press * 2ExtAlrm”
-* Auto stop after 60 seconds OR press “b”
+* Auto stop after 60 seconds OR press “on/c”
 
 ---
 
@@ -197,7 +197,7 @@ When triggered:
 * Smooth cursor movement on LCD
 * Auto-completion logic for digits
 * Bounds checking for time/date fields
-* Debounced keypad scanning
+* keypad scanning
 * Efficient ADC conversion (10-bit)
 * RTC prescaler configuration
 
@@ -205,14 +205,11 @@ When triggered:
 
 ## **🛠 How to Build / Flash**
 
-1. Open project in **Keil uVision** / **MCUXpresso**
+1. Open project in **Keil uVision** 
 2. Select target device **LPC2148**
 3. Compile all `.c` files
 4. Flash using:
-
-   * JTAG
    * FlashMagic
-   * USB-to-UART (ISP mode)
 5. Reset board → Project runs automatically
 
 ---
@@ -227,3 +224,12 @@ When triggered:
 <img width="255" height="113" alt="Screenshot (340)" src="https://github.com/user-attachments/assets/5535ee0c-7f42-4b30-8657-ff0bce4c65e0" />
 <img width="243" height="96" alt="Screenshot (341)" src="https://github.com/user-attachments/assets/96edf33d-5978-41c5-b071-e2044b96e56d" />
 
+
+
+
+
+
+## 👤 Author
+M Raju  
+Embedded System Developer  
+GitHub: Raj-GitCode
