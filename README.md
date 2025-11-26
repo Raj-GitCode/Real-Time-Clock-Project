@@ -1,7 +1,3 @@
-Below is a **clean, professional, structured README.md** you can directly paste into GitHub.
-(Everything is written so **your project looks like a real embedded systems repository**.)
-
----
 
 # **📟 LPC2148 Real-Time Clock, Alarm & Temperature System**
 
