@@ -16,7 +16,7 @@ void Set_Alarm(void);
 // Extern globals from main.c
 extern s32 hour, min, sec, date, month, year, day;
 extern s32 alarm_hour, alarm_min, alarm_sec;
-extern volatile unsigned char menu_active;
+extern unsigned char menu_active;
 extern char key;
 static unsigned char first_run = 1;
 // External ISR from main.c
