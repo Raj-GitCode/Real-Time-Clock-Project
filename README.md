@@ -4,11 +4,17 @@
 A complete embedded application for **LPC2148 ARM7 microcontroller**, featuring:
 
 ✔ Real-Time Clock (RTC)
+
 ✔ Alarm with buzzer/LED
+
 ✔ LM35 temperature display using ADC
+
 ✔ 4×4 keypad interface
+
 ✔ 16×2 LCD display
+
 ✔ External interrupt–based menu
+
 ✔ Fully editable Date, Time and Alarm menus
 
 ---
@@ -65,7 +71,7 @@ The user can set:
 
   * **Stopped with keypad key**
   * **Auto-stopped after 60 seconds**
-* LED/Buzzer toggles on P0.0
+* LED/Buzzer on P0.0
 
 ---
 
@@ -82,7 +88,7 @@ The user can set:
 Press external button → Menu appears:
 
 ```
- ****EDIT****
+   ****EDIT****
 1. SDT  2. SA  3. EXT
 ```
 
