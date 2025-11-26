@@ -13,8 +13,8 @@
 
 // Global variables
 s32 hour, min, sec, date, month, year, day;
-volatile unsigned char eint_flag = 0;
-volatile unsigned char menu_active = 0;
+unsigned char eint_flag = 0;
+unsigned char menu_active = 0;
 char key;
 
 // Alarm globals
