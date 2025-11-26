@@ -63,7 +63,7 @@ The user can set:
 * LCD shows bell symbol when alarm triggers
 * Alarm can be:
 
-  * **Stopped with keypad key ‘b’**
+  * **Stopped with keypad key**
   * **Auto-stopped after 60 seconds**
 * LED/Buzzer toggles on P0.0
 
@@ -101,7 +101,7 @@ Press external button → Menu appears:
 | =   | Move cursor backward |
 | -   | Move cursor down     |
 | x   | Move cursor up       |
-| b   | Save and exit        |
+| on/c| Save and exit        |
 | *   | Menu operations      |
 
 ---
@@ -218,30 +218,7 @@ When triggered:
 * Menu screenshot
 * Alarm bell screenshot
 * Temperature display photo
+<img width="1233" height="847" alt="Screenshot (339)" src="https://github.com/user-attachments/assets/39f62132-1e20-49a0-bfae-1b8459181811" />
+<img width="255" height="113" alt="Screenshot (340)" src="https://github.com/user-attachments/assets/5535ee0c-7f42-4b30-8657-ff0bce4c65e0" />
+<img width="243" height="96" alt="Screenshot (341)" src="https://github.com/user-attachments/assets/96edf33d-5978-41c5-b071-e2044b96e56d" />
 
----
-
-## **👤 Author**
-
-**Your Name**
-Embedded Systems Developer
-GitHub: *your-username*
-
----
-
-## **📄 License**
-
-This project is released under the **MIT License**.
-Feel free to use, modify, or distribute.
-
----
-
-If you want, I can also generate:
-
-✅ A diagram of hardware connections
-✅ Flowchart for alarm logic
-✅ Block diagram
-✅ Keypad mapping image
-✔ A professional GitHub landing banner
-
-Just tell me!
