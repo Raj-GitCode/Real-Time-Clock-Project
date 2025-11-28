@@ -19,7 +19,6 @@ u8 cursor_pos = 0;
 u8 total_fields = 0;
 Field fields[MAX_FIELDS];
 
-// Declare that these variables exist in another file (main.c)
 extern int alarm_hour, alarm_min, alarm_sec;
 
 void Display_AlarmTemplate(void);
@@ -42,7 +41,7 @@ void Display_AlarmTemplate(void)
     StrLCD((s8 *)"   HH:MM:SS   ");
     CmdLCD(0x06);
     CmdLCD(0x0E);
-    cursor_pos = 3;      // start at first H
+   // cursor_pos = 3;      
 }
 
 // ---- Add Field ----
