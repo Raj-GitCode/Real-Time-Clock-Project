@@ -1,5 +1,5 @@
 
-# **📟 LPC2148 Real-Time Clock, Alarm & Temperature System**
+# **📟 LPC2148 Real-Time Clock**
 
 A complete embedded application for **LPC2148 ARM7 microcontroller**, featuring:
 
