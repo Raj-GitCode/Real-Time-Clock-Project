@@ -214,7 +214,7 @@ When triggered:
 
 ---
 
-## **📸 Demonstration Examples** *(Add images in your repo)*
+## **📸 Demonstration Examples**
 
 * LCD date/time screenshot
 * Menu screenshot
